@@ -20,7 +20,7 @@
     .screen.active { display: flex; }
     h2 { font-size: 1.5rem; color: var(--accent); margin-bottom: 12px; font-weight: 700; }
     p { font-size: 1rem; color: var(--text-sub); line-height: 1.6; margin-bottom: 18px; }
-    .btn { background: var(--accent); color: #ffffff; border: none; padding: 12px 28px; font-weight: 600; font-size: 1rem; border-radius: 12px; cursor: pointer; transition: 0.2s; margin-top: 10px; box-shadow: 0 4px 12px rgba(255, 75, 114, 0.25); }
+    .btn { background: var(--accent); color: #ffffff; border: none; padding: 12px 28px; font-weight: 600; font-size: 1rem; border-radius: 12px; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(255, 75, 114, 0.25); }
     .btn:active { transform: scale(0.98); }
     .card { background: var(--bg); border: 1px solid #ffe4e9; padding: 16px; border-radius: 16px; margin-bottom: 12px; width: 100%; text-align: left; }
     .card h3 { font-size: 1rem; color: var(--accent); margin-bottom: 6px; }
@@ -28,14 +28,22 @@
     .option-btn.selected { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: 600; }
     #mission-banner { display: none; color: #10b981; font-weight: 600; font-size: 0.95rem; margin-top: 5px; margin-bottom: 10px; }
     
-    /* Evasive No Button Styling */
+    .btn-wrapper {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      margin-top: 30px;
+      position: relative;
+      min-height: 60px;
+    }
+
     #no-btn { 
-      position: absolute; 
-      transition: 0.15s ease-out; 
       background: #cbd5e1; 
       color: #475569; 
       box-shadow: none;
-      z-index: 999;
+      position: relative;
+      z-index: 10;
     }
     
     .resolution-img { 
@@ -61,21 +69,21 @@
 <body>
 
 <div class="container">
-  <!-- Screen 1: The Dramatic Opener -->
+  <!-- Screen 1 -->
   <div class="screen active" id="s1">
     <h2>Maaf Krdo Meri Maa! 🙏🏻❤️</h2>
     <p>Leaving you on seen was a total mistake, and I know it! No lame excuses, no disappearing acts. I built this tiny page just to bring you back to my frequency.</p>
     <button class="btn" onclick="nextScreen(2)">Hear Me Out</button>
   </div>
 
-  <!-- Screen 2: Real Talk -->
+  <!-- Screen 2 -->
   <div class="screen" id="s2">
     <h2>Real Talk 💬</h2>
     <p>No excuses, no blaming a busy schedule. Leaving your message hanging was just bad form on my end. You deserve someone who pays attention, stays consistent, and handles things right—simple as that.</p>
     <button class="btn" onclick="nextScreen(3)">Keep Going</button>
   </div>
 
-  <!-- Screen 3: The YJHD Climax -->
+  <!-- Screen 3 -->
   <div class="screen" id="s3">
     <h2>The Realization 🎆</h2>
     <p style="font-size: 0.85rem; color: var(--text-sub); margin-bottom: 12px;">Like Bunny showing up with zero doubts...</p>
@@ -90,7 +98,7 @@
     <button class="btn" onclick="nextScreen(4)">My Peace Offering</button>
   </div>
 
-  <!-- Screen 4: Pick Your Prize -->
+  <!-- Screen 4 -->
   <div class="screen" id="s4">
     <h2>Let Me Make It Up To You 🎁</h2>
     <p>Pick how we fix this—you call the shots:</p>
@@ -102,21 +110,20 @@
     <button class="btn" onclick="nextScreen(5)" style="margin-top: 5px;">Lock It In 🔒</button>
   </div>
 
-  <!-- Screen 5: The Evasive Decision -->
+  <!-- Screen 5 -->
   <div class="screen" id="s5">
     <h2>Are We Good? 🎯</h2>
     <p>So, what do you say... are we back on track?</p>
-    <div style="display: flex; gap: 15px; margin-top: 20px; width: 100%; justify-content: center; position: relative; min-height: 80px;">
+    <div class="btn-wrapper">
       <button class="btn" onclick="nextScreen(6)">YES! ❤️</button>
       <button class="btn" id="no-btn" ontouchstart="moveNo(event)" onmouseover="moveNo(event)" onclick="moveNo(event)">No</button>
     </div>
   </div>
 
-  <!-- Screen 6: FINAL RESOLUTION -->
+  <!-- Screen 6 -->
   <div class="screen" id="s6">
     <h2>Resolution Complete ✨</h2>
     
-    <!-- Make sure the filename below matches your repository exactly -->
     <img src="Screenshot_2026-09-13-04-13-04-89_1c337646f29875672b5a61192b9010f9.jpg" alt="Our Moment" class="resolution-img">
     
     <div class="shake-text">
