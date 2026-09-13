@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Mythri</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    :root {
+      --bg: #fffbfb;
+      --primary: #e63946;
+      --card-bg: #ffffff;
+      --text: #2b2d42;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      padding: 20px;
+    }
+    .screen {
+      display: none;
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 30px 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Buttons */
+    .btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: transform 0.2s;
+    }
+    .btn:hover { transform: scale(1.05); }
+    /* Screen 1 Envelope */
+    .envelope {
+      width: 120px;
+      height: 90px;
+      background: #f4a261;
+      margin: 20px auto;
+      border-radius: 8px;
+      position: relative;
+      cursor: pointer;
+    }
+    .seal {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      border-radius: 50%;
+      position: absolute;
+      top: 25px;
+      left: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+    }
+    /* Photos */
+    .photo-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .photo-card {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 10px;
+    }
+    .photo-card img {
+      width: 100%;
+      border-radius: 8px;
+      height: 180px;
+      object-fit: cover;
+    }
+    /* Evasive Button Container */
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      position: relative;
+      min-height: 60px;
+      margin-top: 20px;
+    }
+    #no-btn {
+      position: absolute;
+      background: #6c757d;
+      transition: all 0.2s ease;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Screen 1: Envelope -->
+  <div id="screen1" class="screen active">
+    <h3>Dearest Mythri,</h3>
+    <p>There is a message waiting inside...</p>
+    <div class="envelope" onclick="nextScreen(2)">
+      <div class="seal">♥</div>
+    </div>
+    <p style="font-size: 12px; color: #888;">CLICK THE WAX SEAL TO OPEN</p>
+  </div>
+
+  <!-- Screen 2: Gallery -->
+  <div id="screen2" class="screen">
+    <h3>Our Memories</h3>
+    <div class="photo-grid">
+      <div class="photo-card">
+        <img src="https://via.placeholder.com/300x180" alt="Memory 1">
+        <p style="font-size: 14px; margin: 5px 0 0 0;">Good Times ♥</p>
+      </div>
+    </div>
+    <button class="btn" onclick="nextScreen(3)">Read My Apology →</button>
+  </div>
+
+  <!-- Screen 3: Letter -->
+  <div id="screen3" class="screen">
+    <h3>A Heartfelt Note</h3>
+    <p style="text-align: left; line-height: 1.6; font-size: 14px;">
+      I'm sorry for slipping up. My phone completely died right after I opened your message, and I passed out cold before plugging it in. Zero excuses—I know you asked for an update and I hate that I left you hanging. Let's reset today?
+    </p>
+    <button class="btn" onclick="nextScreen(4)">Click to Continue →</button>
+  </div>
+
+  <!-- Screen 4: Interactive Decision -->
+  <div id="screen4" class="screen">
+    <h3>Do you forgive me?</h3>
+    <p style="font-size: 13px; color: #666;">I promise to learn from my mistakes and keep things solid.</p>
+    <div class="btn-group">
+      <button class="btn" onclick="forgive()">Yes! ♥</button>
+      <button class="btn" id="no-btn" onmouseover="moveNo()" onclick="moveNo()">No 😢</button>
+    </div>
+  </div>
+
+  <!-- Screen 5: Success -->
+  <div id="screen5" class="screen">
+    <h2>Thank You, My Love! ♥</h2>
+    <p>You made me the happiest person!</p>
+  </div>
+</div>
+
+<script>
+  function nextScreen(num) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen' + num).classList.add('active');
+  }
+
+  function moveNo() {
+    const btn = document.getElementById('no-btn');
+    const x = Math.random() * (window.innerWidth - 100) - (window.innerWidth / 2 - 50);
+    const y = Math.random() * (window.innerHeight - 100) - (window.innerHeight / 2 - 50);
+    btn.style.transform = `translate(${x}px, ${y}px)`;
+  }
+
+  function forgive() {
+    nextScreen(5);
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+  }
+</script>
+</body>
+        </html>
+        
